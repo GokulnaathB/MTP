@@ -51,7 +51,7 @@ A triangle counting graph algorithm counts the number of cycles made of exactly 
      ```
      A "forward neighbor" of u means a neighbor that has higher degree than u.
      This approach eliminates the redundancy by imposing an ordering on the vertices and only looking "forward" in that ordering. As a result, each triangle is counted exactly once.
-     - <u>Intuition</u> : Consider a vertex 'u' of the graph. Mark all the forward neighbors of this vertex. Now pick a forward neighbor 'v' of 'u' (Note that (u, v) form an edge). Now pick a forward neighbor 'w' of 'v' and check whether it is marked. If it is marked, then we have a triangle as 'w' is a forward neighbor of both 'u' and 'v'.
+     - **Intuition** : Consider a vertex 'u' of the graph. Mark all the forward neighbors of this vertex. Now pick a forward neighbor 'v' of 'u' (Note that (u, v) form an edge). Now pick a forward neighbor 'w' of 'v' and check whether it is marked. If it is marked, then we have a triangle as 'w' is a forward neighbor of both 'u' and 'v'.
 
      ## Time Complexity Analysis
      Let 'm' be the number of edges in the graph.
