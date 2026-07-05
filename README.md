@@ -36,3 +36,17 @@ A triangle counting graph algorithm counts the number of cycles made of exactly 
    - The TC of this approach is O(m*d) and the SC is O(V^2). m = number of edges in the graph, d = maximum of degrees of all the vertices of the graph, and V = maximum of the values of all the vertices.
 
 3. The DAG Node Iterator approach
+   - This approach is a slight improvement on the Edge Iterator approach. In the Edge Iterator, for each edge (u,v) we scan all vertices to find common neighbors. And we also end up checking the same triangles multiple times from different edges. There's a lot of redundancy involved here and the following will make it make sense.
+   - In DAG Node Iterator approach, we first order the vertices in ascending order based on their degree. Then we make a DAG as follows: for each undirected edge (u, v), direct it from the lower ranked vertex to the higher ranked vertex.
+   - Now we count the traingles as follows:
+     ```
+     count = 0
+     for each node u (in order):
+     mark all forward neighbors of u
+        for each forward neighbor v of u:
+           for each forward neighbor w of v:
+               if w is marked:
+                  count++
+     unmark all
+     ```
+     A "forward neighbor" of u means a neighbor that has higher rank than u.
