@@ -49,4 +49,4 @@ A triangle counting graph algorithm counts the number of cycles made of exactly 
                   count++
      unmark all
      ```
-     A "forward neighbor" of u means a neighbor that has higher rank than u.
+     A "forward neighbor" of u means a neighbor that has higher degree than u.
