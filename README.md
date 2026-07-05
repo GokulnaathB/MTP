@@ -63,4 +63,7 @@ A triangle counting graph algorithm counts the number of cycles made of exactly 
 
      ## Space Complexity Analysis
      - Since we've constructed an adjaceny matrix of size V+1 x V+1, **the SC is O(V^2).** V = maximum of the values of all the vertices.
-     - **NOTE:** For sparse graphs an adjacency list uses O(V + m) space, which is vastly better than O(V²) when m << V². But if you switch to an adjacency list, the edge lookup adjM[u][v] which is O(1) now becomes O(degree) — so there's a tradeoff. 
+     - **NOTE:** For sparse graphs an adjacency list uses O(V + m) space, which is vastly better than O(V²) when m << V². But if you switch to an adjacency list, the edge lookup adjM[u][v] which is O(1) now becomes O(degree) — so there's a tradeoff.
+
+## How to run the C++ codes?
+For example, to run the naive.cpp code, first run ```g++ naive.cpp -o naive``` and then run ```./naive```.
