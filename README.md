@@ -25,17 +25,17 @@ A triangle counting graph algorithm counts the number of cycles made of exactly 
 - Intrusion detection in network traffic graphs.
 
 ## Approaches to the counting
-1. The naive one
+1. **The naive one**
    - In the naive approach, we consider every possible set of 3 vertices of the graph and check whether they are all  connected to each other. If so, then we count it as a triangle.
    - What makes this approach inefficient is that we also consider every possible permutation (3! of them) for every possible set of 3 vertices of the graph, causing a multitude of redundant checks in case of real-world graphs and hence, the inefficiency. And as a result, we've to divide the final count value by 6.
    - The TC of this approach is O(n^3) and the SC is O(V^2). n = the number of vertices in the grpah, V = maximum of the values of all the vertices.
 
-2. The Edge Iterator approach
+2. **The Edge Iterator approach**
    - In this approach, we consider every edge of the graph and for each one of them, we count the number of common neighbor vertices of the vertices encompassing the edge. And it's obvious that the number of common neighbor vertices is equal to the number of triangles formed with that particular as one of its sides.
    - The redundancy present in this approach is that the number of common neighbors is counted for all the three sides of a triangle, again causing massive computation in case of real-world graphs and hence, inefficient, but not as inefficient as the naive approach. And as a result, we've to divide the final count value by 3.
    - The TC of this approach is O(m*d) and the SC is O(V^2). m = number of edges in the graph, d = maximum of degrees of all the vertices of the graph, and V = maximum of the values of all the vertices.
 
-3. The DAG Node Iterator approach
+3. **The DAG Node Iterator approach**
    - This approach is a slight improvement on the Edge Iterator approach. In the Edge Iterator, for each edge (u,v) we scan all vertices to find common neighbors. And we also end up checking the same triangles multiple times from different edges. There's a lot of redundancy involved here and the following will make it make sense.
    - In DAG Node Iterator approach, we first order the vertices in ascending order based on their degree. Then we make a DAG as follows: for each undirected edge (u, v), direct it from the lower ranked vertex to the higher ranked vertex.
    - Now we count the traingles as follows:
