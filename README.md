@@ -60,3 +60,7 @@ A triangle counting graph algorithm counts the number of cycles made of exactly 
      - To get the order, we're doing ascending order sort of the vertices based on their degree and that takes *O(n*log(n))* time, n = total number of vertices in the graph.
      - ### TC = O(m + m*d + n*log(n)).
      - But m*d dominates over n*logn and m for any reasonably dense graph. **Therefore, the TC = O(m*d)**.
+
+     ## Space Complexity Analysis
+     - Since we've constructed an adjaceny matrix of size V+1 x V+1, **the SC is O(V^2).** V = maximum of the values of all the vertices.
+     - **NOTE:** For sparse graphs an adjacency list uses O(V + m) space, which is vastly better than O(V²) when m << V². But if you switch to an adjacency list, the edge lookup adjM[u][v] which is O(1) now becomes O(degree) — so there's a tradeoff. 
