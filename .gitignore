@@ -1,3 +1,4 @@
 *.exe
 *.o
 *.out
+openmp_revision.cpp
