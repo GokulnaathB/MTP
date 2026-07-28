@@ -31,7 +31,7 @@ A triangle counting graph algorithm counts the number of triangles in a graph. A
    - The TC of this approach is O(V^3) and the SC is O(V^2). V = maximum of the values of all the vertices.
 
 2. **The Edge Iterator approach**
-   - In this approach, we consider every edge of the graph and for each one of them, we count the number of common neighbor vertices of the vertices encompassing the edge. And it's obvious that the number of common neighbor vertices is equal to the number of triangles formed with that particular as one of its sides.
+   - In this approach, we consider every edge of the graph and for each one of them, we count the number of common neighbor vertices of the vertices encompassing the edge. And it's obvious that the number of common neighbor vertices is equal to the number of triangles formed with that particular edge as one of its sides.
    - The redundancy present in this approach is that the number of common neighbors is counted for all the three sides of a triangle, again causing massive computation in case of real-world graphs and hence, inefficient, but not as inefficient as the naive approach. And as a result, we've to divide the final count value by 3.
    - The TC of this approach is O(m*d) and the SC is O(V^2). m = number of edges in the graph, d = maximum of degrees of all the vertices of the graph, and V = maximum of the values of all the vertices.
 
