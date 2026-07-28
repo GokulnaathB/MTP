@@ -84,7 +84,7 @@ int main()
         for (int w = 0; w < V + 1; w += 1)
             if (w != u and w != v and (adjM[u][w] or adjM[w][u]) and (adjM[v][w] or adjM[w][v]))
                 count += 1;
-    } // TC: O(m*d), m = number of edges, d = maximum of degrees of all the vertices of the graph, SC: O(V^2).
+    } // TC: O(m*V), m = number of edges, SC: O(V^2).
     count /= 3;
 
     cout << "The number of triangles in the given graph is: " << count << ".\n";
