@@ -66,12 +66,12 @@ A triangle counting graph algorithm counts the number of triangles in a graph. A
      Let 'm' be the number of edges in the graph.
      - Since we've constructed a graph in which we've directed edges from lower degree vertex to higher degree vertex, loop 1 and loop 3, across all the iterations of the outer loop, run 'm' number of times. *O(m)*
      - Loop 2 runs 'm' number of times as the sum of the number of forward neighbors of all the vertices of the graph equals the number of edges. The inner loop runs |forward_neighbors[v]| number of times. forward_neighbors[v] contains vertices with degree higher than 'v' that 'v' is connected to. That's a subset of all neighbors of 'v'. So, |forward_neighbors[v]| <= degree(v) <= d, d = maximum of degrees of all the vertices of the graph. O(m*d)
-     - To get the order, we're doing ascending order sort of the vertices based on their degree and that takes *O(n*log(n))* time, n = total number of vertices in the graph.
+     - To get the order, we're doing ascending order sort of the vertices based on their degree and that takes O(n*log(n)) time, n = total number of vertices in the graph.
      - ### TC = O(m + m*d + n*log(n)).
-     - But m*d dominates over n*logn and m for any reasonably dense graph. **Therefore, the TC = O(m*d)**.
+     - But m*d dominates over n*logn and m for any reasonably dense graph. Therefore, the TC = O(m*d).
 
      ## Space Complexity Analysis
-     - Since we've constructed an adjacency matrix of size V+1 x V+1, **the SC is O(V^2).** V = maximum of the values of all the vertices.
+     - Since we've constructed an adjacency matrix of size V+1 x V+1, the SC is O(V^2). V = maximum of the values of all the vertices.
      - **NOTE:** For sparse graphs an adjacency list uses O(V + m) space, which is vastly better than O(V²) when m << V². But if you switch to an adjacency list, the edge lookup adjM[u][v] which is O(1) now becomes O(degree) — so there's a tradeoff.
 ## How to run the C++ codes?
 For example, to run the naive.cpp code, first run ```g++ naive.cpp -o naive``` and then run ```./naive```. Make sure you have the GCC C++ compiler installed on your system.
