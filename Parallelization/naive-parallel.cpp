@@ -86,4 +86,6 @@ int main()
     cout << "Sequential: The number of triangles in the given graph is " << count << ".\n";
 
     return 0;
+
+    // Guided: much lower scheduling overhead in the beginning and better load balancing towards the end. It aims to strike a balance.
 }
