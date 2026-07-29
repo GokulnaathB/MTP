@@ -39,7 +39,7 @@ A triangle counting graph algorithm counts the number of triangles in a graph. A
       - https://www.cs.cmu.edu/~15750/notes/lec1.pdf (Page 4)
    - In this approach, we consider every edge of the graph and for each one of them, we count the number of common neighbor vertices of the vertices encompassing the edge. And it's obvious that the number of common neighbor vertices is equal to the number of triangles formed with that particular edge as one of its sides.
    - The redundancy present in this approach is that the number of common neighbors is counted for all the three sides of a triangle, again causing massive computation in case of real-world graphs and hence, inefficient, but not as inefficient as the naive approach. And as a result, we've to divide the final count value by 3.
-   - The TC of this approach is O(m*V) and the SC is O(V^2). m = number of edges in the graph and V = maximum of the values of all the vertices.
+   - The TC of this approach is O(mV) and the SC is O(V^2). m = number of edges in the graph and V = maximum of the values of all the vertices.
 
 3. **The DAG Node Iterator approach**
    - Sources
@@ -65,10 +65,10 @@ A triangle counting graph algorithm counts the number of triangles in a graph. A
      ## Time Complexity Analysis
      Let 'm' be the number of edges in the graph.
      - Since we've constructed a graph in which we've directed edges from lower degree vertex to higher degree vertex, loop 1 and loop 3, across all the iterations of the outer loop, run 'm' number of times. *O(m)*
-     - Loop 2 runs 'm' number of times as the sum of the number of forward neighbors of all the vertices of the graph equals the number of edges. The inner loop runs |forward_neighbors[v]| number of times. forward_neighbors[v] contains vertices with degree higher than 'v' that 'v' is connected to. That's a subset of all neighbors of 'v'. So, |forward_neighbors[v]| <= degree(v) <= d, d = maximum of degrees of all the vertices of the graph. O(m*d)
-     - To get the order, we're doing ascending order sort of the vertices based on their degree and that takes O(n*log(n)) time, n = total number of vertices in the graph.
-     - ### TC = O(m + m*d + n*log(n)).
-     - But m*d dominates over n*logn and m for any reasonably dense graph. Therefore, the TC = O(m*d).
+     - Loop 2 runs 'm' number of times as the sum of the number of forward neighbors of all the vertices of the graph equals the number of edges. The inner loop runs |forward_neighbors[v]| number of times. forward_neighbors[v] contains vertices with degree higher than 'v' that 'v' is connected to. That's a subset of all neighbors of 'v'. So, |forward_neighbors[v]| <= degree(v) <= d, d = maximum of degrees of all the vertices of the graph. O(md)
+     - To get the order, we're doing ascending order sort of the vertices based on their degree and that takes O(nlog(n)) time, n = total number of vertices in the graph.
+     - ### TC = O(m + md + nlog(n)).
+     - But md dominates over nlogn and m for any reasonably dense graph. Therefore, the TC = O(md).
 
      ## Space Complexity Analysis
      - Since we've constructed an adjacency matrix of size V+1 x V+1, the SC is O(V^2). V = maximum of the values of all the vertices.
