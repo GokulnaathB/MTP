@@ -5,10 +5,10 @@ int main()
 {
     // #############################################
     // Taking graph edges input from the user.
-    vector<pair<int, int>> edges;
-    cout << "ENTER THE EDGES OF THE GRAPH\n\n";
     int x, y, z;
     int count = 1;
+    vector<pair<int, int>> edges;
+    cout << "ENTER THE EDGES OF THE GRAPH\n\n";
     while (true)
     {
         cout << "Enter the starting vertex of edge " << count << ": ";
@@ -49,6 +49,14 @@ int main()
         if (!z)
             break;
     }
+
+    // vector<pair<int, int>> edges = {
+    //     {0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}, {5, 6}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}, {0, 5}, {1, 6}, {2, 7}, {3, 8}};
+    // Has got 14 triangles.
+
+    // vector<pair<int, int>> edges = {
+    //     {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {2, 3}, {2, 4}, {2, 5}, {3, 4}, {3, 5}, {4, 5}, {6, 7}, {6, 8}, {6, 9}, {6, 10}, {7, 8}, {7, 9}, {7, 10}, {8, 9}, {8, 10}, {9, 10}, {11, 12}, {11, 13}, {11, 14}, {12, 13}, {12, 14}, {13, 14}};
+    // Has got 34 triangles.
 
     // #############################################
     // Finding the vertex with the highest value.
