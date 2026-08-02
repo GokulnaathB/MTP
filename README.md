@@ -88,6 +88,10 @@ A triangle counting graph algorithm counts the number of triangles in a graph. A
 4. **The Compact Forward approach - Optimized**  
    The original Compact Forward approach orders nodes by degree, requiring an O(n log n) sorting step and degree computation. We improved this by using vertex IDs as the ordering instead — since any consistent total ordering guarantees each triangle is counted exactly once, degree-based ordering is unnecessary. This eliminates the sorting step entirely, reducing the preprocessing complexity from O(n log n) to O(m). The construction of forward neighbors array which took O(n^2) time, now takes only O(m) time. Additionally, we replaced the `vector<vector<int>>` forward neighbor representation with a CSR (Compressed Sparse Row) representation — two flat arrays instead of scattered heap allocations. This improves cache performance, reduces memory overhead, and prepares the implementation for GPU execution where coalesced memory access is critical.
 
+   ## TC and SC
+   - TC: O(md)
+   - SC: O(V), V is the number of vertices in the graph.
+
 ## How to run the C++ codes?
 
 For example, to run the naive.cpp code, first run `g++ naive.cpp -o naive` and then run `./naive`. Make sure you have the GCC C++ compiler installed on your system.
