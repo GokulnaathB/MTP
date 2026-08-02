@@ -86,11 +86,7 @@ A triangle counting graph algorithm counts the number of triangles in a graph. A
      - **NOTE:** For sparse graphs an adjacency list uses O(V + m) space, which is vastly better than O(V²) when m << V². But if you switch to an adjacency list, the edge lookup adjM[u][v] which is O(1) now becomes O(degree) — so there's a tradeoff.
 
 4. **The Compact Forward approach - Optimized**  
-<<<<<<< HEAD
    The original Compact Forward approach orders nodes by degree, requiring an O(n log n) sorting step and degree computation. We improved this by using vertex IDs as the ordering instead — since any consistent total ordering guarantees each triangle is counted exactly once, degree-based ordering is unnecessary. This eliminates the sorting step entirely, reducing the preprocessing complexity from O(n log n) to O(m). Additionally, we replaced the `vector<vector<int>>` forward neighbor representation with a CSR (Compressed Sparse Row) representation — two flat arrays instead of scattered heap allocations. This improves cache performance, reduces memory overhead, and prepares the implementation for GPU execution where coalesced memory access is critical.
-=======
-   The original Compact Forward approach orders nodes by degree, requiring an O(n log n) sorting step and degree computation. We improved this by using vertex IDs as the ordering instead — since any consistent total ordering guarantees each triangle is counted exactly once, degree-based ordering is unnecessary. This eliminates the sorting step entirely, reducing the preprocessing complexity from O(n log n) to O(m). Additionally, we replaced the vector<vector<int>> forward neighbor representation with a CSR (Compressed Sparse Row) representation — two flat arrays instead of scattered heap allocations. This improves cache performance, reduces memory overhead, and prepares the implementation for GPU execution where coalesced memory access is critical.
->>>>>>> f3af9e5fcb47efafcf53442c1dc67274b1800b4b
 
 ## How to run the C++ codes?
 
