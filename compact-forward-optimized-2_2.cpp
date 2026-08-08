@@ -8,51 +8,51 @@ int main()
     // Taking graph edges input from the user.
     int x, y, z;
     int count = 1;
-    vector<pair<int, int>> edges;
-    cout << "ENTER THE EDGES OF THE GRAPH\n\n";
-    while (true)
-    {
-        cout << "Enter the starting vertex of edge " << count << ": ";
-        cin >> x;
-        cout << "Enter the ending vertex of edge " << count << ": ";
-        cin >> y;
-        cout << "\n";
-        edges.push_back({x, y});
-        cout << "Enter 1 to continue or 0 to quit: ";
-        cin >> z;
-        if (z == 1)
-        {
-            cout << "\n";
-            count += 1;
-            continue;
-        }
-        if (z == 0)
-        {
-            cout << "\n";
-            break;
-        }
-        while (z)
-        {
-            cout << "Enter only either 1 or 0, 1 to continue and 0 to quit: ";
-            cin >> z;
-            if (z == 1)
-            {
-                cout << "\n";
-                count += 1;
-                break;
-            }
-            if (z == 0)
-            {
-                cout << "\n";
-                break;
-            }
-        }
-        if (!z)
-            break;
-    }
+    // vector<pair<int, int>> edges;
+    // cout << "ENTER THE EDGES OF THE GRAPH\n\n";
+    // while (true)
+    // {
+    //     cout << "Enter the starting vertex of edge " << count << ": ";
+    //     cin >> x;
+    //     cout << "Enter the ending vertex of edge " << count << ": ";
+    //     cin >> y;
+    //     cout << "\n";
+    //     edges.push_back({x, y});
+    //     cout << "Enter 1 to continue or 0 to quit: ";
+    //     cin >> z;
+    //     if (z == 1)
+    //     {
+    //         cout << "\n";
+    //         count += 1;
+    //         continue;
+    //     }
+    //     if (z == 0)
+    //     {
+    //         cout << "\n";
+    //         break;
+    //     }
+    //     while (z)
+    //     {
+    //         cout << "Enter only either 1 or 0, 1 to continue and 0 to quit: ";
+    //         cin >> z;
+    //         if (z == 1)
+    //         {
+    //             cout << "\n";
+    //             count += 1;
+    //             break;
+    //         }
+    //         if (z == 0)
+    //         {
+    //             cout << "\n";
+    //             break;
+    //         }
+    //     }
+    //     if (!z)
+    //         break;
+    // }
 
-    // vector<pair<int, int>> edges = {
-    //     {0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}, {5, 6}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}, {0, 5}, {1, 6}, {2, 7}, {3, 8}};
+    vector<pair<int, int>> edges = {
+        {0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}, {5, 6}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}, {0, 5}, {1, 6}, {2, 7}, {3, 8}};
     // Has got 14 triangles.
 
     // vector<pair<int, int>> edges = {
@@ -127,36 +127,32 @@ int main()
     f_ptrs[x + 1] = fwd_neighbors.size();
 
     // #############################################
-    // Counting the triangles (not parallelizable).
+    // Counting the triangles. Fully parallelizable with no race conditions.
     count = 0;
-    vector<int> visited(x + 1, 0);
     int w;
     int L, R;
-    for (int i = 0; i <= x; i += 1)
+    for (int i = 0; i < x + 1; i += 1)
     {
         u = i;
         l = f_ptrs[u], r = f_ptrs[u + 1] - 1;
-        for (int j = l; j <= r; j += 1)
-            visited[fwd_neighbors[j]] = 1;
-
-        for (int j = l; j <= r; j += 1)
+        for (int j = l; j <= r; j += 1) // O(2*total_number_edges) = O(total_number_of_edges) across all the iterations of the outer loop.
         {
             v = fwd_neighbors[j];
             L = f_ptrs[v], R = f_ptrs[v + 1] - 1;
-            for (int k = L; k <= R; k += 1)
+            for (int k = L; k <= R; k += 1) // O(maximum_degree)
             {
                 w = fwd_neighbors[k];
-                if (visited[w])
-                    count += 1;
+                for (int p = l; p <= r; p += 1) // O(degree_of_u) <= O(maximum_degree)
+                    if (fwd_neighbors[p] == w)
+                    {
+                        count += 1;
+                        break;
+                    }
             }
         }
-
-        for (int j = l; j <= r; j += 1)
-            visited[fwd_neighbors[j]] = 0;
-    }
-    /* Why isn't this approach parallelizable?
-    Consider two nodes u1 and u2 being processed by different threads simultaneously. u1's forward neighbor happens to be node 5, and u2's forward neighbor also happens to be node 5. Both of these threads mark 5 as visitied and proceed to count triangles.
-    If thread 1 completes soon and unmarks node 5 while Thread 2 is still counting, thread 2 may miss triangles. Here's a race condition: it isn't in the marking, it's in the unmarking! One thread's unmark corrupts another thread's active computation.
+    } // TC = O(total_number_of_edges x delta^2).
+    /* For dense graphs, delta could nearly equal the total number of nodes, in which case O(total_number_of_edges x total_number_of_vertices) is better than this approach. This approach could be better (can't say for sure) for sparse graphs and most of real-world graphs are sparse!
+    There's no free lunch here — it's always a tradeoff between space, time, and parallelizability.
     */
 
     // for (auto v : values)
