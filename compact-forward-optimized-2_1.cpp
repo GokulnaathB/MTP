@@ -8,48 +8,48 @@ int main()
     // Taking graph edges input from the user.
     int x, y, z;
     int count = 1;
-    // vector<pair<int, int>> edges;
-    // cout << "ENTER THE EDGES OF THE GRAPH\n\n";
-    // while (true)
-    // {
-    //     cout << "Enter the starting vertex of edge " << count << ": ";
-    //     cin >> x;
-    //     cout << "Enter the ending vertex of edge " << count << ": ";
-    //     cin >> y;
-    //     cout << "\n";
-    //     edges.push_back({x, y});
-    //     cout << "Enter 1 to continue or 0 to quit: ";
-    //     cin >> z;
-    //     if (z == 1)
-    //     {
-    //         cout << "\n";
-    //         count += 1;
-    //         continue;
-    //     }
-    //     if (z == 0)
-    //     {
-    //         cout << "\n";
-    //         break;
-    //     }
-    //     while (z)
-    //     {
-    //         cout << "Enter only either 1 or 0, 1 to continue and 0 to quit: ";
-    //         cin >> z;
-    //         if (z == 1)
-    //         {
-    //             cout << "\n";
-    //             count += 1;
-    //             break;
-    //         }
-    //         if (z == 0)
-    //         {
-    //             cout << "\n";
-    //             break;
-    //         }
-    //     }
-    //     if (!z)
-    //         break;
-    // }
+    vector<pair<int, int>> edges;
+    cout << "ENTER THE EDGES OF THE GRAPH\n\n";
+    while (true)
+    {
+        cout << "Enter the starting vertex of edge " << count << ": ";
+        cin >> x;
+        cout << "Enter the ending vertex of edge " << count << ": ";
+        cin >> y;
+        cout << "\n";
+        edges.push_back({x, y});
+        cout << "Enter 1 to continue or 0 to quit: ";
+        cin >> z;
+        if (z == 1)
+        {
+            cout << "\n";
+            count += 1;
+            continue;
+        }
+        if (z == 0)
+        {
+            cout << "\n";
+            break;
+        }
+        while (z)
+        {
+            cout << "Enter only either 1 or 0, 1 to continue and 0 to quit: ";
+            cin >> z;
+            if (z == 1)
+            {
+                cout << "\n";
+                count += 1;
+                break;
+            }
+            if (z == 0)
+            {
+                cout << "\n";
+                break;
+            }
+        }
+        if (!z)
+            break;
+    }
 
     // vector<pair<int, int>> edges = {
     //     {0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}, {5, 6}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}, {0, 5}, {1, 6}, {2, 7}, {3, 8}};
@@ -131,6 +131,10 @@ int main()
     // There are x+1 nodes.
     int num_of_64s = ((x + 1) + 63) / 64;
     vector<vector<uint64_t>> fwd_bits(x + 1, vector<uint64_t>(num_of_64s, 0));
+    /*
+    Why uint64_t?
+    We want each element to hold exactly 64 bits. Type uint64_t is unsigned 64 bits — no sign bit, all 64 bits are usable for storing neighbor information. Safe for all bitwise operations.
+    */
 
     for (int i = 0; i <= x; i += 1)
     {
@@ -140,12 +144,28 @@ int main()
         {
             v = fwd_neighbors[j];
             fwd_bits[u][v / 64] |= (1ULL << (v % 64));
+            /*
+            Why not 1 << (v % 64)?
+            v % 64 can be anywhere from 0 to 63 — so if v % 64 >= 31, you're shifting a 32-bit signed int into (sign bit changes) or past the sign bit (doesn't fit in 32 bits) → undefined behavior.
+            1ULL is a 64-bit unsigned int — shifting up to 63 positions is always safe, no sign bit to worry about.
+            That's why 1ULL is used specifically — not because 1 is negative, but because it's only 32 bits and shifts beyond 30 are dangerous!
+            (The size of 1 depends on its type, not the system architecture. 1 is always an int in C++, and int is always 32 bits on most systems regardless of whether the system is 32-bit or 64-bit. The 64-bit in "64-bit system" refers to the size of pointers and memory addresses, not the size of int.)
+            */
         }
     }
+    /*
+    uint64_t for the vector and 1ULL for left shift — they're consistent with each other. If you used 1 instead of 1ULL, you'd be shifting a 32-bit value and OR-ing it into a 64-bit value — inconsistent and potentially undefined behavior.
+    */
+    /*
+    Why choose uint64_t in the first place?
+    Because most CPUs natively support 64-bit operations in hardware.
+    uint64_t AND, OR, POPCNT → single CPU instruction.
+    uint128_t No native hardware support on most CPUs.
+    */
 
     // #############################################
     // Counting the triangles. Fully parallelizable with no race conditions.
-    uint64_t holder;
+    // uint64_t holder;
     count = 0;
     for (int i = 0; i <= x; i += 1)
     {
@@ -176,6 +196,10 @@ int main()
     A single CPU instruction vs 64 iterations of a loop. The constant matters enormously here — that's a 64x difference in actual execution time even though both are O(1)! This is one of those cases where Big-O notation doesn't tell the full story!
     Counting all the bits in one CPU cycle — that's the whole speedup!
     __builtin_popcountll maps directly to the POPCNT instruction that exists in modern Intel/AMD CPUs. The hardware literally has dedicated circuitry to count bits in a 64-bit number in one clock cycle.
+    */
+    /*
+    Space Complexity:
+    For fwd_bits: V x V/64 x 64bits = V x V/64 x 8 bytes = V x V/8 bytes = O(V^2 / 8).
     */
 
     cout << "The number of triangles present = " << count << ".\n";

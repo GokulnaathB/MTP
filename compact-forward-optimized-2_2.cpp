@@ -154,6 +154,10 @@ int main()
     /* For dense graphs, delta could nearly equal the total number of nodes, in which case O(total_number_of_edges x total_number_of_vertices) is better than this approach. This approach could be better (can't say for sure) for sparse graphs and most of real-world graphs are sparse!
     There's no free lunch here — it's always a tradeoff between space, time, and parallelizability.
     */
+    /*
+    Space Complexity:
+    For fwd_neighbors: Each undirected edge (u,v) contributes exactly one entry — either v goes into u's list (if u < v) or u goes into v's list (if v < u). So, O(total_number_of_edges) = O(m).
+    */
 
     // for (auto v : values)
     //     cout << v << " ";
