@@ -8,51 +8,51 @@ int main()
     // Taking graph edges input from the user.
     int x, y, z;
     int count = 1;
-    // vector<pair<int, int>> edges;
-    // cout << "ENTER THE EDGES OF THE GRAPH\n\n";
-    // while (true)
-    // {
-    //     cout << "Enter the starting vertex of edge " << count << ": ";
-    //     cin >> x;
-    //     cout << "Enter the ending vertex of edge " << count << ": ";
-    //     cin >> y;
-    //     cout << "\n";
-    //     edges.push_back({x, y});
-    //     cout << "Enter 1 to continue or 0 to quit: ";
-    //     cin >> z;
-    //     if (z == 1)
-    //     {
-    //         cout << "\n";
-    //         count += 1;
-    //         continue;
-    //     }
-    //     if (z == 0)
-    //     {
-    //         cout << "\n";
-    //         break;
-    //     }
-    //     while (z)
-    //     {
-    //         cout << "Enter only either 1 or 0, 1 to continue and 0 to quit: ";
-    //         cin >> z;
-    //         if (z == 1)
-    //         {
-    //             cout << "\n";
-    //             count += 1;
-    //             break;
-    //         }
-    //         if (z == 0)
-    //         {
-    //             cout << "\n";
-    //             break;
-    //         }
-    //     }
-    //     if (!z)
-    //         break;
-    // }
+    vector<pair<int, int>> edges;
+    cout << "ENTER THE EDGES OF THE GRAPH\n\n";
+    while (true)
+    {
+        cout << "Enter the starting vertex of edge " << count << ": ";
+        cin >> x;
+        cout << "Enter the ending vertex of edge " << count << ": ";
+        cin >> y;
+        cout << "\n";
+        edges.push_back({x, y});
+        cout << "Enter 1 to continue or 0 to quit: ";
+        cin >> z;
+        if (z == 1)
+        {
+            cout << "\n";
+            count += 1;
+            continue;
+        }
+        if (z == 0)
+        {
+            cout << "\n";
+            break;
+        }
+        while (z)
+        {
+            cout << "Enter only either 1 or 0, 1 to continue and 0 to quit: ";
+            cin >> z;
+            if (z == 1)
+            {
+                cout << "\n";
+                count += 1;
+                break;
+            }
+            if (z == 0)
+            {
+                cout << "\n";
+                break;
+            }
+        }
+        if (!z)
+            break;
+    }
 
-    vector<pair<int, int>> edges = {
-        {0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}, {5, 6}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}, {0, 5}, {1, 6}, {2, 7}, {3, 8}};
+    // vector<pair<int, int>> edges = {
+    //     {0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}, {5, 6}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}, {0, 5}, {1, 6}, {2, 7}, {3, 8}};
     // Has got 14 triangles.
 
     // vector<pair<int, int>> edges = {
