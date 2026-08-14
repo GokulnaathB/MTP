@@ -171,7 +171,7 @@ int main()
     {
         u = i;
         l = f_ptrs[u], r = f_ptrs[u + 1] - 1;
-        for (int j = l; j <= r; j += 1) // O(2*total_number_edges) = O(total_number_of_edges) across all the iterations of the outer loop.
+        for (int j = l; j <= r; j += 1) // O(total_number_of_edges) across all the iterations of the outer loop.
         {
             v = fwd_neighbors[j];
             for (int k = 0; k < num_of_64s; k += 1) // O(ceil(n/64)) = O(n)
