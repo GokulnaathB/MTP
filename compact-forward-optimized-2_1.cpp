@@ -193,7 +193,7 @@ int main()
     } // TC = O(total_number_of_edges x total_number_of_vertices).
     /*
     Method 1 vs Method 2:
-    A single CPU instruction vs 64 iterations of a loop. The constant matters enormously here — that's a 64x difference in actual execution time even though both are O(1)! This is one of those cases where Big-O notation doesn't tell the full story!
+    64 iterations of a loop vs a single CPU instruction. The constant matters enormously here — that's a 64x difference in actual execution time even though both are O(1)! This is one of those cases where Big-O notation doesn't tell the full story!
     Counting all the bits in one CPU cycle — that's the whole speedup!
     __builtin_popcountll maps directly to the POPCNT instruction that exists in modern Intel/AMD CPUs. The hardware literally has dedicated circuitry to count bits in a 64-bit number in one clock cycle.
     */
