@@ -15,12 +15,15 @@ Consider node ‘u’ has 4 neighbors ‘A’, ‘B’, ‘C’, and ‘D’ and
 
 Global clustering coefficient: average over all nodes in the graph.
 
-### Real world interpretation (Example: Community detection)
+### Real world application (Example: Community detection)
 
 - High clustering coefficient → tight knit community (a friends group where everyone knows everyone).
-- Low clustering coefficient loose connections. Example: →
-- Spam accounts have very few triangles (no real social ties).
-- Very few triangles means low clustering coefficient.
+- Low clustering coefficient means the node is part of less number of triangles. Example: Spam/Fraud accounts are a part of very few triangles (no real social ties). If a node 'u' has very few neighbors, then an approximate triangle counting algorithm may report that it is part of no traingles, when in actual, it could be part of one. And getting to know about that one triangle is crucial so fraud activities can be detected and stopped, which approximate counting may not help us in doing.
+- Because criminals scatter their transactions across Bank X, Bank Y, and Bank Z, no single bank can see the full triangle on its own. To fight this, countries have created centralized systems (FIU) that merge the data from all banks into one master graph. Using exact triangle counting, we can construct a subgraph from this master graph based on the clustering co-efficient (requires exact triangle counting at least in this case) (approximate triangle counting can't help as it only deals macroscopically with the graph, not at a node level) of each node and also based on the banks' sense of which accounts could be fake (based on transactions, assets, etc.). Now this sub-graph could be analyzed for fraud detection.
+- Approximate algorithms are designed for macro-level analysis (getting a quick, high-level bird's-eye view of the whole graph). They are completely blind at the micro-level (inspecting individual nodes).
+
+- Protien-protien interaction networks. It's the human body! We can't compromise on exactness.
+- K-truss and link recommendation engines.
 
 ## Approximate counting
 
