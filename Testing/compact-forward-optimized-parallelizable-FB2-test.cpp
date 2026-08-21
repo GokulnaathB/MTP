@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
             for (int j = 0; j < SIZE; j += 1)
                 fwd_bits[i].push_back(0);
         }
-    }
+    } // Space: V x max_fwd_neighbor/64
 
     // 2. Setting the bits of fwd_bits[i] corresponding to its forward neighbors.
     int u, v;
