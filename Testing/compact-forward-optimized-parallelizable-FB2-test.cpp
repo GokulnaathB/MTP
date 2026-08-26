@@ -30,7 +30,14 @@ int main(int argc, char *argv[])
 
     // 1. Calculate the maximum number of bits required for each node, which should be a multiple of 64.
     int max_fwd_neighbor, SIZE, n;
-    vector<vector<uint64_t>> fwd_bits(V);
+
+    // Method 1
+    // vector<vector<uint64_t>> fwd_bits(V);
+
+    // Method 2
+    vector<uint64_t *> fwd_bits(V, nullptr);
+    vector<int> fwd_bits_size(V, 0);
+
     for (int i = 0; i < V; i += 1)
     {
         max_fwd_neighbor = INT_MIN;
@@ -42,9 +49,17 @@ int main(int argc, char *argv[])
         {
             n = max_fwd_neighbor + 1;
             SIZE = (n + 63) / 64;
-            // Now have to insert SIZE uint64_t zeros in fwd_bits[i].
-            for (int j = 0; j < SIZE; j += 1)
-                fwd_bits[i].push_back(0);
+            // Now have to insert SIZE uint64_t zeros in fwd_bits[i]:
+
+            // Method 1
+            // for (int j = 0; j < SIZE; j += 1)
+            //     fwd_bits[i].push_back(0);
+
+            // Method 2
+            uint64_t *addr = (uint64_t *)malloc(SIZE * sizeof(uint64_t));
+            memset(addr, 0, SIZE * sizeof(uint64_t));
+            fwd_bits[i] = addr;
+            fwd_bits_size[i] = SIZE;
         }
     } // Space: V x max_fwd_neighbor/64
 
@@ -71,7 +86,13 @@ int main(int argc, char *argv[])
         for (int j = l; j <= r; j += 1)
         {
             v = fwd_neighbors[j];
-            s1 = fwd_bits[u].size(), s2 = fwd_bits[v].size();
+
+            // Method 1
+            // s1 = fwd_bits[u].size(), s2 = fwd_bits[v].size();
+
+            // Method 2
+            s1 = fwd_bits_size[u], s2 = fwd_bits_size[v];
+
             for (int k = 0; k < min(s1, s2); k += 1)
                 count += __builtin_popcountll(fwd_bits[u][k] & fwd_bits[v][k]);
         }
@@ -81,6 +102,10 @@ int main(int argc, char *argv[])
     cout << "The number of nodes in the graph = " << g.nodes << ".\n";
     cout << "The number of triangles present = " << count << ".\n";
     freeECLgraph(g);
+
+    // Freeing the internal arrays of fwd_bits
+    for (int i = 0; i < V; i += 1)
+        free(fwd_bits[i]);
 
     return 0;
 }
