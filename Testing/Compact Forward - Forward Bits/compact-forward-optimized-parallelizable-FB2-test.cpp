@@ -95,6 +95,7 @@ int main(int argc, char *argv[])
 
             for (int k = 0; k < min(s1, s2); k += 1)
                 count += __builtin_popcountll(fwd_bits[u][k] & fwd_bits[v][k]);
+            // This 64x speed-up matters for dense graphs.
         }
     }
     // This version has drastically better space complexity in practice, though their theoretical worst-case Big-O remains the same.
