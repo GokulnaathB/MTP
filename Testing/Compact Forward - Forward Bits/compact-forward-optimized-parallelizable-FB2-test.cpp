@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
             // Method 2
             uint64_t *addr = (uint64_t *)malloc(SIZE * sizeof(uint64_t));
-            memset(addr, 0, SIZE * sizeof(uint64_t));
+            memset(addr, 0, SIZE * sizeof(uint64_t)); // initializes byte by byte.
             fwd_bits[i] = addr;
             fwd_bits_size[i] = SIZE;
         }
