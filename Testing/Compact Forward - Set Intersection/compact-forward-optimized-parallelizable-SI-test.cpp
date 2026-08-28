@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
                     x += 1;
                 else if (fwd_neighbors[x] > fwd_neighbors[y])
                     y += 1;
+                // optimization here - ToDo.
                 else
                 {
                     count += 1;
