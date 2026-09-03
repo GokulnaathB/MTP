@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
     int u, v, w;
     int L, R;
     int x, y;
+    auto start = chrono::high_resolution_clock::now();
     for (int i = 0; i < V; i += 1)
     {
         u = i;
@@ -55,9 +56,12 @@ int main(int argc, char *argv[])
             }
         }
     } // TC = O(total_number_of_edes x delta)
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = end - start;
 
     cout << "The number of nodes in the graph = " << g.nodes << ".\n";
     cout << "The number of triangles present = " << count << ".\n";
+    cout << "Time taken: " << elapsed.count() << " seconds\n";
     freeECLgraph(g);
     return 0;
 }

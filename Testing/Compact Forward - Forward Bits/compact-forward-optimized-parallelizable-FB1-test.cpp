@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#include "ECLgraph.h"
+#include <chrono>
+#include "../ECLgraph.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -66,6 +67,7 @@ int main(int argc, char *argv[])
     // Counting the triangles. Fully parallelizable with no race conditions.
     // uint64_t holder;
     int count = 0;
+    auto start = chrono::high_resolution_clock::now();
     for (int i = 0; i <= V - 1; i += 1)
     {
         u = i;
@@ -89,7 +91,10 @@ int main(int argc, char *argv[])
                 The AND operation is also a single instruction. So the entire line is O(1). */
             }
         }
-    } // TC = O(total_number_of_edges x total_number_of_vertices).
+    }
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = end - start;
+    // TC = O(total_number_of_edges x total_number_of_vertices).
     /*
     Method 1 vs Method 2:
     A single CPU instruction vs 64 iterations of a loop. The constant matters enormously here — that's a 64x difference in actual execution time even though both are O(1)! This is one of those cases where Big-O notation doesn't tell the full story!
@@ -103,6 +108,7 @@ int main(int argc, char *argv[])
 
     cout << "The number of nodes in the graph = " << g.nodes << ".\n";
     cout << "The number of triangles present = " << count << ".\n";
+    cout << "Time taken: " << elapsed.count() << " seconds\n";
     freeECLgraph(g);
     return 0;
 }

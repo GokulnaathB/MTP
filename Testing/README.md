@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 ```
 
 Run it as:
-`./your_program.cpp graph.egr`
+`./name_of_executable ../graph.egr`
 
 - amazon0601.egr has got 403394 nodes. It has got 3986507 triangles. Use this to test your Linear scan + CSR algorithm, which can handle a sparse graph of about 40 million nodes.
 - internet.egr has got 124651 nodes. It has got 19523 triangles. Use this to test your fwd_bits + CSR algorithm, which can handle graphs with only upto 250000 nodes.

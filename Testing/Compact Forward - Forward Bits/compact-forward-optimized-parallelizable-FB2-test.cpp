@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#include "ECLgraph.h"
+#include <chrono>
+#include "../ECLgraph.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -79,6 +80,7 @@ int main(int argc, char *argv[])
     // #############################################
     // Counting the triangles. Fully parallelizable with no race conditions.
     int count = 0, s1, s2;
+    auto start = chrono::high_resolution_clock::now();
     for (int i = 0; i < V; i += 1)
     {
         u = i;
@@ -98,10 +100,13 @@ int main(int argc, char *argv[])
             // This 64x speed-up matters for dense graphs.
         }
     }
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = end - start;
     // This version has drastically better space complexity in practice, though their theoretical worst-case Big-O remains the same.
 
     cout << "The number of nodes in the graph = " << g.nodes << ".\n";
     cout << "The number of triangles present = " << count << ".\n";
+    cout << "Time taken: " << elapsed.count() << " seconds\n";
     freeECLgraph(g);
 
     // Freeing the internal arrays of fwd_bits

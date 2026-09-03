@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#include "ECLgraph.h"
+#include <chrono>
+#include "../ECLgraph.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -30,6 +31,7 @@ int main(int argc, char *argv[])
     int count = 0;
     int u, v, w;
     int L, R;
+    auto start = chrono::high_resolution_clock::now();
     for (int i = 0; i < V; i += 1)
     {
         u = i;
@@ -49,7 +51,10 @@ int main(int argc, char *argv[])
                     }
             }
         }
-    } // TC = O(total_number_of_edges x delta^2).
+    }
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = end - start;
+    // TC = O(total_number_of_edges x delta^2).
     /* For dense graphs, delta could nearly equal the total number of nodes, in which case O(total_number_of_edges x total_number_of_vertices) is better than this approach. This approach could be better (can't say for sure) for sparse graphs and most of real-world graphs are sparse!
     There's no free lunch here — it's always a tradeoff between space, time, and parallelizability.
     */
@@ -60,6 +65,7 @@ int main(int argc, char *argv[])
 
     cout << "The number of nodes in the graph = " << g.nodes << ".\n";
     cout << "The number of triangles present = " << count << ".\n";
+    cout << "Time taken: " << elapsed.count() << " seconds\n";
     freeECLgraph(g);
     return 0;
 }
