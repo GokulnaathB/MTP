@@ -8,13 +8,13 @@
 | fwd_bits + CSR (1)     | O(m.V/64)  | O(V^2 / 8)                     | YES            |
 | fwd_bits + CSR (2)     | O(m.V/64)  | O(V^2 / 8) Better in practice. | YES            |
 
-| Method             | internet.egr (s) | amazon0601.egr |
-| ------------------ | ---------------- | -------------- |
-| Merge based SI     | 0.019248         | 0.604099       |
-| Adaptive SI        | 0.014261         | 0.515357       |
-| fwd_bits + CSR (1) | 2.73924          | NA             |
-| fwd_bits + CSR (2) | 0.688395         | NA             |
-| Linear Scan + CSR  | 0.018188         | 1.51059        |
+| Method             | internet.egr (s) | amazon0601.egr (s) |
+| ------------------ | ---------------- | ------------------ |
+| Merge based SI     | 0.019248         | 0.604099           |
+| Adaptive SI        | 0.014261         | 0.515357           |
+| fwd_bits + CSR (1) | 2.73924          | NA                 |
+| fwd_bits + CSR (2) | 0.688395         | NA                 |
+| Linear Scan + CSR  | 0.018188         | 1.51059            |
 
 'm' is the number of edges (for each pair of vertices that are connected, only one direction considered [vertex with lower id to vertex with higher id]).
 
