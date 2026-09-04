@@ -1,20 +1,26 @@
 # Time and Space Complexity Analysis of the Various Compact-Forward Optimized Algorithms
 
-| Method                 | TC         | SC                             | Parallelizable |
-| ---------------------- | ---------- | ------------------------------ | -------------- |
-| Visited array + CSR    | O(m.Δ)     | O(V + m)                       | NO             |
-| Set Intersection + CSR | O(m.Δ)     | O(m)                           | YES            |
-| Linear scan + CSR      | O(m.(Δ^2)) | O(m)                           | YES            |
-| fwd_bits + CSR (1)     | O(m.V/64)  | O(V^2 / 8)                     | YES            |
-| fwd_bits + CSR (2)     | O(m.V/64)  | O(V^2 / 8) Better in practice. | YES            |
+| Method                             | TC                                    | SC                             | Parallelizable |
+| ---------------------------------- | ------------------------------------- | ------------------------------ | -------------- |
+| Visited array + CSR                | O(m.Δ)                                | O(V + m)                       | NO             |
+| merge based Intersection           | O(m.Δ) = O(V^2) for sparse graphs     | O(m)                           | YES            |
+| adaptive Intersection              |                                       | O(m)                           | YES            |
+| degree based adaptive Intersection | O(m^3/2) = O(V^1.5) for sparse graphs | O(m)                           | YES            |
+| Linear scan                        | O(m.(Δ^2))                            | O(m)                           | YES            |
+| fwd_bits (1)                       | O(m.V/64)                             | O(V^2 / 8)                     | YES            |
+| fwd_bits (2)                       | O(m.V/64)                             | O(V^2 / 8) Better in practice. | YES            |
 
-| Method             | internet.egr (s) | amazon0601.egr (s) |
-| ------------------ | ---------------- | ------------------ |
-| Merge based SI     | 0.019248         | 0.604099           |
-| Adaptive SI        | 0.014261         | 0.515357           |
-| fwd_bits + CSR (1) | 2.73924          | NA                 |
-| fwd_bits + CSR (2) | 0.688395         | NA                 |
-| Linear Scan + CSR  | 0.018188         | 1.51059            |
+| Method                   | internet.egr (s)             | amazon0601.egr (s)    |
+| ------------------------ | ---------------------------- | --------------------- |
+| Merge based SI           | 0.019248                     | 0.604099              |
+| Adaptive SI              | 0.014261                     | 0.515357              |
+| Degree based adaptive SI | 0.012001                     | 0.45 to 0.55          |
+|                          | 0.034179 (w sort)            | 0.45 to 0.55 (w sort) |
+| fwd_bits + CSR (1)       | 2.73924                      | NA                    |
+|                          | 3.51362 (w fwd bits making)  | NA                    |
+| fwd_bits + CSR (2)       | 0.688395                     | NA                    |
+|                          | 0.934033 (w fwd bits making) | NA                    |
+| Linear Scan + CSR        | 0.018188                     | 1.51059               |
 
 'm' is the number of edges (for each pair of vertices that are connected, only one direction considered [vertex with lower id to vertex with higher id]).
 

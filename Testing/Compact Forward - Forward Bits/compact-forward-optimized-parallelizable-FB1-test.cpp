@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
     // #############################################
     // Constructing the forward bits matrix.
     // There are x+1 nodes.
+    auto start = chrono::high_resolution_clock::now();
     int num_of_64s = (V + 63) / 64;
     vector<vector<uint64_t>> fwd_bits(V, vector<uint64_t>(num_of_64s, 0));
     /*
@@ -67,7 +68,6 @@ int main(int argc, char *argv[])
     // Counting the triangles. Fully parallelizable with no race conditions.
     // uint64_t holder;
     int count = 0;
-    auto start = chrono::high_resolution_clock::now();
     for (int i = 0; i <= V - 1; i += 1)
     {
         u = i;

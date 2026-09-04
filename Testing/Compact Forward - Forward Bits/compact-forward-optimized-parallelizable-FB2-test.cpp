@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
     // Constructing the forward bits matrix.
 
     // 1. Calculate the maximum number of bits required for each node, which should be a multiple of 64.
+    auto start = chrono::high_resolution_clock::now();
     int max_fwd_neighbor, SIZE, n;
 
     // Method 1
@@ -80,7 +81,6 @@ int main(int argc, char *argv[])
     // #############################################
     // Counting the triangles. Fully parallelizable with no race conditions.
     int count = 0, s1, s2;
-    auto start = chrono::high_resolution_clock::now();
     for (int i = 0; i < V; i += 1)
     {
         u = i;
