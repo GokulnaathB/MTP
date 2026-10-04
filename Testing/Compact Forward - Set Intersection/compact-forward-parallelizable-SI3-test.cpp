@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
     // #############################################
     // Creating an ECLgraph object of the input graph.
     ECLgraph g = readECLgraph(argv[1]);
+    auto total_start = chrono::high_resolution_clock::now();
     int V = g.nodes;
 
     vector<int> degree(V, 0);
@@ -104,14 +105,16 @@ int main(int argc, char *argv[])
     f_ptrs[V] = fwd_neighbors.size();
 
     // Sorting each node's forward neigbors
-    auto start = chrono::high_resolution_clock::now();
     for (int i = 0; i < V; i += 1)
     {
         int l = f_ptrs[i], r = f_ptrs[i + 1];
         sort(fwd_neighbors.begin() + l, fwd_neighbors.begin() + r);
     }
 
+    auto preprocessing_end = chrono::high_resolution_clock::now();
+
     // Counting
+    auto start = chrono::high_resolution_clock::now();
     int count = 0;
     for (int i = 0; i < V; i += 1)
     {
@@ -155,10 +158,28 @@ int main(int argc, char *argv[])
     }
 
     auto end = chrono::high_resolution_clock::now();
-    chrono::duration<double> elapsed = end - start;
+    auto total_end = chrono::high_resolution_clock::now();
+
+    chrono::duration<double> preprocessing_time =
+        preprocessing_end - total_start;
+
+    chrono::duration<double> counting_time =
+        end - start;
+
+    chrono::duration<double> total_time =
+        total_end - total_start;
 
     cout << "The number of nodes in the graph = " << g.nodes << ".\n";
     cout << "The number of triangles present = " << count << ".\n";
-    cout << "Time taken: " << elapsed.count() << " seconds\n";
+
+    cout << "Preprocessing time: "
+         << preprocessing_time.count() << " seconds\n";
+
+    cout << "Counting time: "
+         << counting_time.count() << " seconds\n";
+
+    cout << "Total time: "
+         << total_time.count() << " seconds\n";
     freeECLgraph(g);
+    return 0;
 }

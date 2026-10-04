@@ -3,3 +3,7 @@
 *.out
 openmp_revision.cpp
 *.egr
+Parallel_Results
+Results
+*.sh
+ECLGraphs
